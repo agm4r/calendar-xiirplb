@@ -4,14 +4,14 @@
             margin-top: 10px;
         }
         h3 {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         th {
-            height: 30px;
+            height: 20px;
             text-align: center;
         }
         td {
-            height: 100px;
+            height: 20px;
         }
         .today {
             background: orange;
@@ -34,26 +34,67 @@
 @section('konten')
 
         <h3><a href="?ym={{ $prev }}">&lt;</a> {{ $html_title }} <a href="?ym={{ $next }}">&gt;</a></h3>
-        <table class="table table-bordered">
+        <div class="container"> 
+            <table class="table table-bordered">
+                <tr>
+                    <th>S</th>
+                    <th>M</th>
+                    <th>T</th>
+                    <th>W</th>
+                    <th>T</th>
+                    <th>F</th>
+                    <th>S</th>
+                </tr>
+                  @foreach($weeks as $week)
+
+                      <?php 
+                        echo $week;
+                      ?>
+
+                  @endforeach
+            </table>
+            <p class="float-right">Klik pada tanggal untuk menambahkan acara!</p>
+
+        </div><br><br>
+
+        <!-- Semua Events -->
+
+    <h3>Semua Events</h3>
+    <div class="content float-center">
+        <table class="table">
+          <thead class="thead-dark">
             <tr>
-                <th>S</th>
-                <th>M</th>
-                <th>T</th>
-                <th>W</th>
-                <th>T</th>
-                <th>F</th>
-                <th>S</th>
+              <th scope="col">No</th>
+              <th scope="col">Acara</th>
+              <th scope="col">Tanggal</th>
+              <th scope="col">Jam</th>
+              <th scope="col">Notes</th>
+              <th>Action</th>
             </tr>
-              @foreach($weeks as $week)
+          </thead>
+          <tbody>
 
-                  <?php 
-                    echo $week;
-                  ?>
+            @foreach($event as $d)
 
-              @endforeach
+            <tr>
+              <th scope="row" class="text-dark">{{ $i++ }}</th>
+              <td class="text-dark">{{ $d->title }}</td>
+              <td>{{ date('d F Y', strtotime($d->date)) }}</td>
+              <td>{{  $d->time }}</td>
+              <td><?= $d->Notes ?></td>
+              <td>
+                 <button type="button" class="btn btn-light"><a class="text-dark" href="edit/{{ $d->id }}/{{ $d->date }}">Ubah</a></button>
+                <button type="button" class="btn btn-dark"><a class="text-light" onclick="return confirm('Apakah anda yakin ingin mengahpus event {{ $d->title }}')" href="delete/{{ $d->id }}/{{ 0 }}">Hapus</a></button>
+              </td>
+            </tr>
+
+            @endforeach
+
+          </tbody>
         </table>
-
-<center><a class="text-dark" href="/blog"> Kembali </a></center>
+        <a class="float-right text-success" href="/export_excel" class="text-success">Export ke .xls</a>
+        <center><a class="text-dark" href="/"> Kembali </a></center>
+    </div>
 
 <br><br>
 @endsection

@@ -30,7 +30,7 @@ class calendarController extends Controller
 		$today = date('Y-m-j', time());
 
 		// For H3 title
-		$html_title = date('Y  M', $timestamp);
+		$html_title = date('F Y', $timestamp);
 
 		// Create prev & next month link     mktime(hour,minute,second,month,day,year)
 		$prev = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)-1, 1, date('Y', $timestamp)));
@@ -54,14 +54,18 @@ class calendarController extends Controller
 		// Add empty cell
 		$week .= str_repeat('<td></td>', $str);
 
+
+
 		for ( $day = 1; $day <= $day_count; $day++, $str++) {
-		     
+		    
+			$day = str_pad($day, 2, '0', STR_PAD_LEFT);
+
 		    $date = $ym . '-' . $day;
 		     
 		    if ($today == $date) {
-		        $week .= '<td class="today"><a class="text-dark" href="/blog/events/' . $date . '"> ' . $day;
+		        $week .= '<td class="today"><a class="text-dark" href="events/' . $date . '"> ' . $day;
 		    } else {
-		        $week .= '<td><a class="text-dark" href="/blog/events/' . $date . '"> ' . $day; 
+		        $week .= '<td><a class="text-dark" href="events/' . $date . '"> ' . $day; 
 		    }
 		    $week .= '</a></td>';
 		     
@@ -81,7 +85,25 @@ class calendarController extends Controller
 
 		}
 
-		return view('calendar', ['weeks' => $weeks, 'prev' => $prev, 'next' => $next, 'html_title' => $html_title, 'ym' => $ym]);
+
+		// mengambil data events berdasarkan date seluruh data events
+		$i = 1;
+		$event = DB::table('events')->get();
+
+		// Jika tanggal acara telah berlalu maka Notes di ganti dengan tulisan "Acara telah berlalu"
+	
+		foreach ($event as $d) {
+
+			if (strtotime($d->date) < strtotime(date('Y-m-d'))) {
+
+				$d->Notes = '<p class="text-danger"><i> Acara telah berlalu </i></p>';	
+
+			}
+
+
+		}
+		return view('calendar', ['event' => $event, 'i' => $i, 'weeks' => $weeks, 'prev' => $prev, 'next' => $next, 'html_title' => $html_title, 'ym' => $ym]);
+
 	}
 
 	public function events($date)
@@ -111,20 +133,21 @@ class calendarController extends Controller
 			'Notes' => $request->notes,
 			'NISN' => $request->NISN
 		]);
-		return redirect('blog/events/' . $request->date);
+		return redirect('/events/' . $request->date);
 	 
 	}
 
-	public function edit($id)
+	public function edit($id, $mark)
 	{
-		// mengambil data murid berdasarkan nisn yang dipilih
+		// mengambil data event berdasarkan tanggal tersebut
 		$events = DB::table('events')->where('id',$id)->get();
-		// passing data murid yang didapat ke view update.blade.php
-		return view('calendar/update',['events' => $events]);
+
+		// passing data event yang telah dibuat ke update.blade.php
+		return view('calendar/update',['events' => $events, 'mark' => $mark]);
 	 
 	}
 
-	public function update(Request $request)
+	public function update(Request $request, $mark)
 	{
 		// edit data murid
 		DB::table('events')->where('id', $request->id)->update([
@@ -134,15 +157,23 @@ class calendarController extends Controller
 			'Notes' => $request->notes,
 			'NISN' => $request->NISN
 		]);
-		// alihkan halaman ke halaman murid
-		return redirect('/blog/events/' . $request->date);
+
+		if ($mark == 0) {
+			return redirect('/events/' . $request->date);
+		}
+
+		return redirect('calendar');
 	}
 
 	public function delete($id, $dateDelete)
 	{
 		DB::table('events')->where('id', $id)->delete();
+
+		if ($dateDelete == 0) {
+			return redirect('calendar');
+		}
 			
-		return redirect('blog/events/' . $dateDelete);
+		return redirect('events/' . $dateDelete);
 	}
 
 }

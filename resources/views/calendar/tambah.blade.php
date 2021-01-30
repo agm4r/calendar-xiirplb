@@ -9,9 +9,9 @@
 @section('konten')
 
 
-<h3>Tambah event {{ $date }}</h3>
+<h3>Tambah event {{ date('d F Y', strtotime($date)) }}</h3>
 
-  <form action="/blog/events/insert" method="post">
+  <form action="/events/insert" method="post">
     {{ csrf_field() }}
   <div class="form-group">
     <label>Judul</label>
@@ -27,12 +27,12 @@
   </div>
   <div class="form-group">
     <label>NOTES</label>
-    <textarea type="text" name="notes" cols="3" rows="5" class="form-control"></textarea>  
+    <textarea type="text" name="notes" cols="3" rows="5" class="form-control" required></textarea>  
   </div>
   <button type="submit" name="submit" class="btn btn-dark">Submit</button>
 </form>
 
 
-<br><br><center><a class="text-dark" href="/xiirplb/siswa">Back</a></center>
+<br><br><center><a class="text-dark" href="/events/{{ $date }}">Back</a></center>
 
 @endsection

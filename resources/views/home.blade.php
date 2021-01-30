@@ -60,7 +60,7 @@
 
                           @endforeach
                     </table>
-            <center><a class="text-dark" href="/blog/calendar"> Tambah Acara? </a></center>
+            <center><a class="text-dark" href="/calendar"> Tambah Acara? </a></center>
             <br><br>
             </div>
         </div>

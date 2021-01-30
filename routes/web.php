@@ -23,27 +23,31 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('dosen', 'DosenController@index');
-
 Route::get('belajar', 'BelajarController@index');
-
 Route::get('welcome', 'tugas5Controller@welcome');
 Route::get('biodata', 'tugas5Controller@biodata');
-
 Route::get('formulir', 'SiswaController@formulir');
 Route::post('formulir/proses', 'SiswaController@proses');
 
 
 //route blog
-Route::get('blog/', 'blogController@home');
-Route::get('blog/profile', 'blogController@profile');
-Route::get('blog/contact', 'blogController@contact');
-Route::get('/blog/calendar','calendarController@index');
-Route::get('/blog/events/{date}','calendarController@events');
-Route::get('/blog/events/tambah/{date}','calendarController@tambah');
-Route::post('/blog/events/insert','calendarController@insert');
-Route::post('/blog/events/update','calendarController@update');
-Route::get('/blog/events/delete/{id}/{date}','calendarController@delete');
-Route::get('/blog/events/edit/{id}','calendarController@edit');
+Route::get('/', 'blogController@home');
+Route::get('profile', 'blogController@profile');
+Route::get('contact', 'blogController@contact');
+Route::get('/calendar','calendarController@index');
+Route::get('/events/{date}','calendarController@events');
+Route::get('/events/tambah/{date}','calendarController@tambah');
+Route::post('/events/insert','calendarController@insert');
+
+
+Route::post('/events/update/{mark}','calendarController@update');
+
+Route::get('/events/delete/{id}/{date}','calendarController@delete');
+Route::get('/delete/{id}/{date}','calendarController@delete');
+Route::get('edit/{id}/{mark}','calendarController@edit');
+Route::get('events/edit/{id}/{mark}','calendarController@edit');
+
+Route::get('export_excel','ExportController@excel');
 
 
 //route xii rpl b

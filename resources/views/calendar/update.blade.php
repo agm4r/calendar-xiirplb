@@ -10,7 +10,7 @@
 
   @foreach( $events as $d )
 
-  <form action="/blog/events/update" method="post">
+  <form action="/events/update/{{ $mark }}" method="post">
     {{ csrf_field() }}
   <div class="form-group">
     <label>ID</label>
@@ -22,7 +22,11 @@
   </div>
   <div class="form-group">
     <label>DATE</label>
-    <input type="date" class="form-control" name="date" value="{{ $d->date }}" readonly>
+    @if($mark == 0)
+      <input type="date" class="form-control" name="date" value="{{ $d->date }}" readonly>
+    @else
+      <input type="date" class="form-control" name="date" value="{{ $d->date }}">
+    @endif
   </div>
    <div class="form-group">
     <label>PUKUL</label>
@@ -35,8 +39,7 @@
   <button type="submit" name="submit" class="btn btn-dark">Submit</button>
 </form>
 
+<br><br><center><a class="text-dark" href="/events/{{ $d->date }}">Back</a></center>
 @endforeach
-
-<br><br><center><a class="text-dark" href="/blog/calendar">Back</a></center>
 
 @endsection

@@ -31,7 +31,7 @@
       <td>{{  $d->time }}</td>
       <td>{{  $d->Notes }}</td>
       <td>
-         <button type="button" class="btn btn-light"><a class="text-dark" href="edit/{{ $d->id }}">Ubah</a></button>
+         <button type="button" class="btn btn-light"><a class="text-dark" href="edit/{{ $d->id }}/{{ $mark = 0}} ">Ubah</a></button>
         <button type="button" class="btn btn-dark"><a class="text-light" onclick="return confirm('Apakah anda yakin ingin mengahpus event {{ $d->title }}')" href="delete/{{ $d->id }}/{{ $d->date }}">Hapus</a></button>
       </td>
     </tr>
@@ -40,8 +40,8 @@
 
   </tbody>
 </table>
-<a class="text-dark" href="/blog/events/tambah/{{ $date }}">Tambah Events</a>
+<a class="text-dark" href="/events/tambah/{{ $date }}">Tambah Events</a>
 
-<br><br><center><a class="text-dark" href="/blog/calendar">Back</a></center>
+<br><br><center><a class="text-dark" href="/calendar">Back</a></center>
 
 @endsection
