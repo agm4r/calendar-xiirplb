@@ -24,7 +24,7 @@
 @extends('master')
 
 <!-- judul halaman -->
-@section('judul halaman', 'Halaman Home')
+<!-- @section('judul halaman', 'Halaman Home') -->
 
 <!-- Isi Konten -->
 @section('konten')

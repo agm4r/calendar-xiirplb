@@ -14,46 +14,40 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });	
-
-// Route::get('/biodata', function () {
-//     return view('biodata');
-// });
-
-Route::get('dosen', 'DosenController@index');
-Route::get('belajar', 'BelajarController@index');
-Route::get('welcome', 'tugas5Controller@welcome');
-Route::get('biodata', 'tugas5Controller@biodata');
-Route::get('formulir', 'SiswaController@formulir');
-Route::post('formulir/proses', 'SiswaController@proses');
+Route::get('belajar', 'BelajarController@index')->middleware('auth');
+Route::get('welcome', 'tugas5Controller@welcome')->middleware('auth');
+Route::get('biodata', 'tugas5Controller@biodata')->middleware('auth');
+Route::get('formulir', 'SiswaController@formulir')->middleware('auth');
+Route::post('formulir/proses', 'SiswaController@proses')->middleware('auth');
 
 
 //route blog
-Route::get('/', 'blogController@home');
-Route::get('profile', 'blogController@profile');
-Route::get('contact', 'blogController@contact');
-Route::get('/calendar','calendarController@index');
-Route::get('/events/{date}','calendarController@events');
-Route::get('/events/tambah/{date}','calendarController@tambah');
-Route::post('/events/insert','calendarController@insert');
+Route::get('/', 'blogController@home')->middleware('auth');
+Route::get('profile', 'blogController@profile')->middleware('auth');
+Route::get('contact', 'blogController@contact')->middleware('auth');
+Route::get('/calendar','calendarController@index')->middleware('auth');
+Route::get('/events/{date}','calendarController@events')->middleware('auth');
+Route::get('/events/tambah/{date}','calendarController@tambah')->middleware('auth');
+Route::post('/events/insert','calendarController@insert')->middleware('auth');
 
 
-Route::post('/events/update/{mark}','calendarController@update');
+Route::post('/events/update/{mark}','calendarController@update')->middleware('auth');
 
-Route::get('/events/delete/{id}/{date}','calendarController@delete');
-Route::get('/delete/{id}/{date}','calendarController@delete');
-Route::get('edit/{id}/{mark}','calendarController@edit');
-Route::get('events/edit/{id}/{mark}','calendarController@edit');
+Route::get('/events/delete/{id}/{date}','calendarController@delete')->middleware('auth');
+Route::get('/delete/{id}/{date}','calendarController@delete')->middleware('auth');
+Route::get('edit/{id}/{mark}','calendarController@edit')->middleware('auth');
+Route::get('events/edit/{id}/{mark}','calendarController@edit')->middleware('auth');
 
-Route::get('export_excel','ExportController@excel');
+Route::get('export_excel','ExportController@excel')->middleware('auth');
 
 
 //route xii rpl b
-Route::get('/xiirplb/siswa', 'xiirplbController@index');
-Route::get('/xiirplb/tambah', 'xiirplbController@tambah');
-Route::get('/xiirplb/update/{id}', 'xiirplbController@update');
-Route::get('/xiirplb/delete/{id}', 'xiirplbController@delete');
-Route::post('/xiirplb/store', 'xiirplbController@store');
-Route::post('/xiirplb/edit','xiirplbController@edit');
+Route::get('/xiirplb/siswa', 'xiirplbController@index')->middleware('auth');
+Route::get('/xiirplb/tambah', 'xiirplbController@tambah')->middleware('auth');
+Route::get('/xiirplb/update/{id}', 'xiirplbController@update')->middleware('auth');
+Route::get('/xiirplb/delete/{id}', 'xiirplbController@delete')->middleware('auth');
+Route::post('/xiirplb/store', 'xiirplbController@store')->middleware('auth');
+Route::post('/xiirplb/edit','xiirplbController@edit')->middleware('auth');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');

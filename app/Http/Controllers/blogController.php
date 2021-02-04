@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class blogController extends Controller
 {
     public function home(){
-    	// Set your timezone
+    	// Time Zone
 		date_default_timezone_set('Asia/Jakarta');
 
 		// Get prev & next month
@@ -31,19 +31,15 @@ class blogController extends Controller
 		// For H3 title
 		$html_title = date('Y  M', $timestamp);
 
-		// Create prev & next month link     mktime(hour,minute,second,month,day,year)
+		// Create prev & next month link 
 		$prev = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)-1, 1, date('Y', $timestamp)));
 		$next = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)+1, 1, date('Y', $timestamp)));
-		// You can also use strtotime!
-		// $prev = date('Y-m', strtotime('-1 month', $timestamp));
-		// $next = date('Y-m', strtotime('+1 month', $timestamp));
 
 		// Number of days in the month
 		$day_count = date('t', $timestamp);
 		 
 		// 0:Sun 1:Mon 2:Tue ...
 		$str = date('w', mktime(0, 0, 0, date('m', $timestamp), 1, date('Y', $timestamp)));
-		//$str = date('w', $timestamp);
 
 
 		// Create Calendar!!
