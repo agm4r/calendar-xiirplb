@@ -32,12 +32,9 @@ class calendarController extends Controller
 		// For H3 title
 		$html_title = date('F Y', $timestamp);
 
-		// Create prev & next month link     mktime(hour,minute,second,month,day,year)
+		// Create prev & next month link mktime(hour,minute,second,month,day,year)
 		$prev = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)-1, 1, date('Y', $timestamp)));
 		$next = date('Y-m', mktime(0, 0, 0, date('m', $timestamp)+1, 1, date('Y', $timestamp)));
-		// You can also use strtotime!
-		// $prev = date('Y-m', strtotime('-1 month', $timestamp));
-		// $next = date('Y-m', strtotime('+1 month', $timestamp));
 
 		// Number of days in the month
 		$day_count = date('t', $timestamp);
@@ -86,17 +83,16 @@ class calendarController extends Controller
 		}
 
 
-		// mengambil data events berdasarkan date seluruh data events
+		// mengambil seluruh data events
 		$i = 1;
 		$event = DB::table('events')->get();
 
 		// Jika tanggal acara telah berlalu maka Notes di ganti dengan tulisan "Acara telah berlalu"
-	
 		foreach ($event as $d) {
 
 			if (strtotime($d->date) < strtotime(date('Y-m-d'))) {
 
-				$d->Notes = '<p class="text-danger"><i> Acara telah berlalu </i></p>';	
+				$d->Notes = '<p class="text-danger"><i> Acara telah berlalu! </i></p>';	
 
 			}
 
@@ -154,10 +150,10 @@ class calendarController extends Controller
 			'title' => $request->title,
 			'date' => $request->date,
 			'time' => $request->time,
-			'Notes' => $request->notes,
-			'NISN' => $request->NISN
+			'Notes' => $request->notes
 		]);
 
+		//Jika mengedit data events berasal dari halaman events, maka akan kembali lagi kehalaman events
 		if ($mark == 0) {
 			return redirect('/events/' . $request->date);
 		}
@@ -169,6 +165,7 @@ class calendarController extends Controller
 	{
 		DB::table('events')->where('id', $id)->delete();
 
+		//Jika menghapus data events berasal dari halaman events, maka akan kembali lagi kehalaman events
 		if ($dateDelete == 0) {
 			return redirect('calendar');
 		}
