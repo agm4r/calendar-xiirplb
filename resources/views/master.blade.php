@@ -24,8 +24,6 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/profile">Profile</a>
-        <a class="nav-link" href="/xiirplb/siswa">Siswa</a>
         <a class="nav-link" href="/calendar">Calendar</a>
         <a class="nav-link" href="/contact">Contact</a>
         @guest
