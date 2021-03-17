@@ -8,6 +8,9 @@
     <!-- Bootstrap CSS -->
    <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.css') }}">
 
+   <!-- Custome CSS -->
+   <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+
    <!-- JS -->
    <script src="{{ asset('js/app.js') }}" defer></script>
   <!--  welcome css -->
