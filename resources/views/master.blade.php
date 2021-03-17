@@ -25,7 +25,7 @@
       <div class="navbar-nav">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/calendar">Calendar</a>
-        <a class="nav-link" href="/contact">Contact</a>
+        <a class="nav-link text" href="/contact">Contact</a>
         @guest
         <li class="nav-item">
           <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
