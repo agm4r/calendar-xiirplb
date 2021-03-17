@@ -33,7 +33,7 @@
 <!-- Isi Konten -->
 @section('konten')
 
-        <h3><a href="?ym={{ $prev }}">&lt;</a> {{ $html_title }} <a href="?ym={{ $next }}">&gt;</a></h3>
+        <h3 class="jumbroton"><a href="?ym={{ $prev }}">&lt;</a> {{ $html_title }} <a href="?ym={{ $next }}">&gt;</a></h3>
         <div class="container"> 
             <table class="table table-bordered">
                 <tr>

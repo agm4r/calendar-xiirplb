@@ -11,7 +11,7 @@
 
 <h3>Events tanggal  {{  date("d F Y", strtotime($date)) }}</h3>
 
-  <table class="table">
+  <table class="table jumbroton">
   <thead class="thead-dark">
     <tr>
       <th scope="col">No</th>

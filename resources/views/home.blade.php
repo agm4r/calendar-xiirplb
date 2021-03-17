@@ -1,26 +1,23 @@
 <style>
-    .container {
-        font-family: 'Noto Sans', sans-serif;        
-    }
-    h3 {
-        margin-bottom: 30px;
-    }
-    th {
-        height: 20px;
-        text-align: center;
-    }
-    td {
-        height: 10px;
-    }
-    .today {
-        background: orange;
-    }
-    th:nth-of-type(1), td:nth-of-type(1) {
-        color: red;
-    }
-    th:nth-of-type(7), td:nth-of-type(7) {
-        color: blue;
-    }
+        h3 {
+            margin-bottom: 30px;
+        }
+        th {
+            height: 20px;
+            text-align: center;
+        }
+        td {
+            height: 10px;
+        }
+        .today {
+            background: orange;
+        }
+        th:nth-of-type(1), td:nth-of-type(1) {
+            color: red;
+        }
+        th:nth-of-type(7), td:nth-of-type(7) {
+            color: blue;
+        }
 </style>
 @extends('master')
 
@@ -30,16 +27,13 @@
 <!-- Isi Konten -->
 @section('konten')
 
-<div class="container">
+<div class="container jumbroton">
     <div class="row">
         <div class="col">
-            <div class="pt-5">
-                <h4> Selamat Datang di Web Kalender XII RPL B </h4>
+            <div class="pt-4">
+                <h4>Selamat Datang di Web Kalender XII RPL B</h4>
             </div>
-            <div class="distance">
-                <span>AGMAR | XII RPL B </span>
-            </div>
-            <div class="text-center">
+            <div class="text-justify pt-5">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="240" width="240" x="px" y="px"
                 viewBox="0 0 280.028 280.028" style="enable-background:new 0 0 280.028 280.028;" xml:space="preserve">
                 <g>
