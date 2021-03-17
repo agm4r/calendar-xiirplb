@@ -9,9 +9,9 @@
 @section('konten')
 
 
-<h3>Events tanggal  {{  date("d F Y", strtotime($date)) }}</h3>
+<h3 class="jumbroton">Events tanggal  {{  date("d F Y", strtotime($date)) }}</h3>
 
-  <table class="table jumbroton">
+  <table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">No</th>
