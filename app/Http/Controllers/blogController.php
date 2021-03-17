@@ -54,9 +54,9 @@ class blogController extends Controller
 		    $date = $ym . '-' . $day;
 		     
 		    if ($today == $date) {
-		        $week .= '<td class="today"><a class="text-dark" href="/blog/events/' . $date . '"> ' . $day;
+		        $week .= '<td class="today"><a class="text-dark" href="/events/' . $date . '"> ' . $day;
 		    } else {
-		        $week .= '<td><a class="text-dark" href="/blog/events/' . $date . '"> ' . $day; 
+		        $week .= '<td><a class="text-dark" href="/events/' . $date . '"> ' . $day; 
 		    }
 		    $week .= '</a></td>';
 		     
@@ -76,7 +76,11 @@ class blogController extends Controller
 
 		}
 
-		return view('home', ['weeks' => $weeks, 'prev' => $prev, 'next' => $next, 'html_title' => $html_title, 'ym' => $ym]);
+		return view('home', ['weeks' => $weeks, 
+							 'prev' => $prev, 
+							 'next' => $next, 
+							 'html_title' => $html_title, 
+							 'ym' => $ym]);
 	}
 
 	public function profile(){

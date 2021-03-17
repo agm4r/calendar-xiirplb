@@ -10,7 +10,7 @@ class xiirplbController extends Controller
     public function index(){
     	
     	// mengambil data dari table xii rpl b
-    	$murid = DB::select('call GetAllMurid()');
+    	$murid = DB::table()->get();
  
     	// mengirim data xiirplb ke view index
     	return view('xiirplb', ['murid' => $murid]);

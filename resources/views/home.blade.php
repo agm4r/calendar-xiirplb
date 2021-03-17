@@ -37,7 +37,7 @@
                     <h4> Selamat Datang di Web Kalender XII RPL B </h4>
                 </div>
                 <div>
-                    <span>AGMAR | XII RPL B</span>
+                    <span>AGMAR | XII RPL B </span>
                 </div>
             </div>
             <div class="content float-right">

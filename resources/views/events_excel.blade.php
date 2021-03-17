@@ -12,6 +12,7 @@
               <th>Tanggal</th>
               <th>Jam</th>
               <th>Notes</th>
+              <th>Pembuat</th>
             </tr>
           </thead>
           <tbody>
@@ -22,8 +23,9 @@
               <th>{{ $i++ }}</th>
               <td>{{ $d->title }}</td>
               <td>{{ date('d F Y', strtotime($d->date)) }}</td>
-              <td>{{  $d->time }}</td>
+              <td>{{ $d->time }}</td>
               <td>{{  $d->Notes }}</td>
+              <td>{{  $d->name }}</td>
             </tr>
 
             @endforeach

@@ -14,7 +14,7 @@
     {{ csrf_field() }}
   <div class="form-group">
     <label>ID</label>
-    <input type="text" class="form-control" name="id" value="{{ $d->id }}" readonly>
+    <input type="text" class="form-control" name="id" value="{{ $d->id_event }}" readonly>
   </div>
   <div class="form-group">
     <label>JUDUL</label>

@@ -69,6 +69,7 @@
               <th scope="col">Tanggal</th>
               <th scope="col">Jam</th>
               <th scope="col">Notes</th>
+              <th scope="col">Pembuat</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -80,11 +81,23 @@
               <th scope="row" class="text-dark">{{ $i++ }}</th>
               <td class="text-dark">{{ $d->title }}</td>
               <td>{{ date('d F Y', strtotime($d->date)) }}</td>
-              <td>{{  $d->time }}</td>
-              <td><?= $d->Notes ?></td>
+              <td>{{ date('g:i A', strtotime($d->time)) }}</td>
+              <!-- menggunakan tag php karna di CalendarController berisi tag html di string -->
+              <td><?= $d->Notes ?></td> 
+              <td>{{ $d->name }}</td>
               <td>
-                 <button type="button" class="btn btn-light"><a class="text-dark" href="edit/{{ $d->id }}/{{ $d->date }}">Ubah</a></button>
-                <button type="button" class="btn btn-dark"><a class="text-light" onclick="return confirm('Apakah anda yakin ingin mengahpus event {{ $d->title }}')" href="delete/{{ $d->id }}/{{ 0 }}">Hapus</a></button>
+                 <button type="button" class="btn btn-light">
+                  <a class="text-dark" href="edit/{{ $d->id_event }}/{{ $d->date }}">Ubah</a>
+                </button>
+               @if($d->id_user == Auth::user()->id)
+                <button type="button" class="btn btn-dark">
+                  <a class="text-light" onclick="return confirm('Apakah anda yakin ingin mengahpus event {{ $d->title }}')" href="delete/{{ $d->id_event }}/{{ $d->date = 0 }}">Hapus</a>
+                </button>
+                @else
+                <button type="button" class="btn btn-dark">
+                  <a class="text-light" onclick="return alert('Maaf anda tidak bisa menghapus data ini.')" href="#">Hapus</a>
+                </button>
+                @endif
               </td>
             </tr>
 

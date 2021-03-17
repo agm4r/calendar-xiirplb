@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\facades\Auth;
  
 class calendarController extends Controller
 {
@@ -85,7 +86,9 @@ class calendarController extends Controller
 
 		// mengambil seluruh data events
 		$i = 1;
-		$event = DB::table('events')->get();
+		$event = DB::table('events')
+				->join('users', 'events.id_user', '=', 'users.id')
+				->get();
 
 		// Jika tanggal acara telah berlalu maka Notes di ganti dengan tulisan "Acara telah berlalu"
 		foreach ($event as $d) {
@@ -98,15 +101,21 @@ class calendarController extends Controller
 
 
 		}
-		return view('calendar', ['event' => $event, 'i' => $i, 'weeks' => $weeks, 'prev' => $prev, 'next' => $next, 'html_title' => $html_title, 'ym' => $ym]);
+
+		$dataCalendar = ['event' => $event, 'i' => $i, 'weeks' => $weeks, 'prev' => $prev, 'next' => $next, 'html_title' => $html_title, 'ym' => $ym];
+
+		return view('calendar', $dataCalendar);
 
 	}
 
 	public function events($date)
 	{
-		// mengambil data events berdasarkan date 
+		// mengambil data events berdasarkan date dan join table users 
 		$i = 1;
-		$event = DB::table('events')->where('date',$date)->get();
+		$event = DB::table('events')
+				->join('users', 'events.id_user', '=', 'users.id')
+				->where('date',$date)
+				->get();
 
 		// passing data events yang didapat ke view events.blade.php
 		return view('events', ['event' => $event, 'date' => $date, 'i' => $i]);
@@ -121,13 +130,16 @@ class calendarController extends Controller
 
 	public function insert(Request $request){
 
+		//mengambil id user dari table users sebagai akun yang sedang di pakai saaat ini
+		$id_user = Auth::user()->id;
+
 
 		DB::table('events')->insert([
 			'title' => $request->title,
 			'date' => $request->date,
 			'time' => $request->time,
 			'Notes' => $request->notes,
-			'NISN' => $request->NISN
+			'id_user' => $id_user
 		]);
 		return redirect('/events/' . $request->date);
 	 
@@ -136,7 +148,7 @@ class calendarController extends Controller
 	public function edit($id, $mark)
 	{
 		// mengambil data event berdasarkan tanggal tersebut
-		$events = DB::table('events')->where('id',$id)->get();
+		$events = DB::table('events')->where('id_event',$id)->get();
 
 		// passing data event yang telah dibuat ke update.blade.php
 		return view('calendar/update',['events' => $events, 'mark' => $mark]);
@@ -145,12 +157,16 @@ class calendarController extends Controller
 
 	public function update(Request $request, $mark)
 	{
-		// edit data murid
-		DB::table('events')->where('id', $request->id)->update([
+		//mengambil id user dari table users sebagai akun yang sedang di pakai saaat ini
+		$id_user  = Auth::user()->id;
+
+		// edit data events
+		DB::table('events')->where('id_event', $request->id)->update([
 			'title' => $request->title,
 			'date' => $request->date,
 			'time' => $request->time,
-			'Notes' => $request->notes
+			'Notes' => $request->notes,
+			'id_user' => $id_user
 		]);
 
 		//Jika mengedit data events berasal dari halaman events, maka akan kembali lagi kehalaman events
@@ -163,14 +179,16 @@ class calendarController extends Controller
 
 	public function delete($id, $dateDelete)
 	{
-		DB::table('events')->where('id', $id)->delete();
+	
+		DB::table('events')->where('id_event', $id)->delete();
 
-		//Jika menghapus data events berasal dari halaman events, maka akan kembali lagi kehalaman events
+			//Jika menghapus data events berasal dari halaman events, maka akan kembali lagi kehalaman events
 		if ($dateDelete == 0) {
 			return redirect('calendar');
 		}
-			
+
 		return redirect('events/' . $dateDelete);
+
 	}
 
 }
