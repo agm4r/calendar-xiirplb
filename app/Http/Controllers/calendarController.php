@@ -165,12 +165,8 @@ class calendarController extends Controller
 			'title' => $request->title,
 			'date' => $request->date,
 			'time' => $request->time,
-<<<<<<< HEAD
-			'Notes' => $request->notes
-=======
 			'Notes' => $request->notes,
 			'id_user' => $id_user
->>>>>>> update
 		]);
 
 		//Jika mengedit data events berasal dari halaman events, maka akan kembali lagi kehalaman events
@@ -186,11 +182,7 @@ class calendarController extends Controller
 	
 		DB::table('events')->where('id_event', $id)->delete();
 
-<<<<<<< HEAD
 		//Jika menghapus data events berasal dari halaman events, maka akan kembali lagi kehalaman events
-=======
-			//Jika menghapus data events berasal dari halaman events, maka akan kembali lagi kehalaman events
->>>>>>> update
 		if ($dateDelete == 0) {
 			return redirect('calendar');
 		}
