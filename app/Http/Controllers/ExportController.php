@@ -16,7 +16,9 @@ class ExportController extends Controller
 
 
 		$i = 1;
-		$event = DB::table('events')->get();
+		$event = DB::table('events')
+				->join('users', 'events.id_user', '=', 'users.id')
+				->get();
 
 		return view('events_excel', ['event' => $event, 'i' => $i]);
 
